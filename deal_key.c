@@ -6,7 +6,7 @@
 /*   By: elfetoua <elfetoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/23 17:55:19 by elfetoua          #+#    #+#             */
-/*   Updated: 2020/02/23 21:55:45 by elfetoua         ###   ########.fr       */
+/*   Updated: 2020/02/24 20:08:47 by elfetoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,6 @@ int		deal_key(int key, void *env1)
 		env->zoom /= 2;
 	mlx_clear_window(env->con_ptr, env->win->win_ptr);
 	ft_draw_map(env->map, env);
+
 	return (key);
 }   

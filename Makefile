@@ -6,7 +6,7 @@
 #    By: elfetoua <elfetoua@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/22 16:54:01 by elfetoua          #+#    #+#              #
-#    Updated: 2020/02/23 18:00:44 by elfetoua         ###   ########.fr        #
+#    Updated: 2020/02/25 12:42:05 by elfetoua         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ LIBFT = ./libft/libft.a
 LDLIBS = -lft -lm -lmlx
 LDFLAGS = -L./libft -framework OpenGl -framework Appkit
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -g -Wall -Wextra -Werror
 
 all: $(LIBFT) $(NAME)
 

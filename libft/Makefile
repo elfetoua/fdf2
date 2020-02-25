@@ -6,7 +6,7 @@
 #    By: elfetoua <elfetoua@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/31 18:37:47 by elfetoua          #+#    #+#              #
-#    Updated: 2020/02/22 17:35:12 by elfetoua         ###   ########.fr        #
+#    Updated: 2020/02/25 12:42:20 by elfetoua         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ SRC = ft_memset.c ft_bzero.c ft_memcpy.c  ft_memccpy.c \
 	ft_bonus_countwords.c ft_bonus_freedoubledem.c get_next_line.c
 OBJ = $(SRC:.c=.o)
 INCLUDE = libft.h
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -g -Wall -Wextra -Werror
 CC = gcc
 
 all: $(NAME)

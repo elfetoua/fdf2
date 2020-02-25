@@ -6,7 +6,7 @@
 /*   By: elfetoua <elfetoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/22 16:51:43 by elfetoua          #+#    #+#             */
-/*   Updated: 2020/02/23 21:27:45 by elfetoua         ###   ########.fr       */
+/*   Updated: 2020/02/24 20:10:20 by elfetoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,28 @@
 int		hex_dec(char *hex_val)
 {
 	int len;
-	int base;
-	int dec_val;
-	int i;
-
+    int base; 
+    int dec_val;
+	int	i;
+	
 	len = ft_strlen(hex_val);
 	base = 1;
 	dec_val = 0;
 	i = len - 1;
-	while (i >= 0)
-	{
-		if (hex_val[i] >= '0' && hex_val[i] <= '9')
-			dec_val += (hex_val[i] - 48) * base;
-		else if (hex_val[i] >= 'A' && hex_val[i] <= 'F')
-			dec_val += (hex_val[i] - 55) * base;
-		/*else if (hex_val[i] >= 'a' && hex_val[i] <= 'f')
-			dec_val += (hex_val[i] - 55 - 32) * base;*/
-		base = base * 16;
+    while (i >= 0)
+    {
+        if (hex_val[i] >= '0' && hex_val[i] <= '9')
+        {
+            dec_val += (hex_val[i] - 48) * base;
+            base = base * 16;
+        }
+        else if (hex_val[i] >= 'A' && hex_val[i] <='F')
+        {
+            dec_val += (hex_val[i] - 55) * base; 
+            base = base * 16;
+        }
 		i--;
-	}
+    }
 	return (dec_val);
 }
 
@@ -129,7 +132,6 @@ void	env_map(t_map *map, t_env *env)
 		//printf("%f %f %d", env->map->content[i].x, env->map->content[i].y, env->map->size);
 		i++;
 	}
-	printf("NOT here\n");
 }
 
 int		main(int ac, char **av)
@@ -146,7 +148,6 @@ int		main(int ac, char **av)
 			ft_setup(&env);
 			env_map(&map, &env);
 			mlx_key_hook(env.win->win_ptr, deal_key, (void*)&env);
-			printf("DEBUG\n");
 		// ft_draw_map(&map, &env);
 			mlx_loop(env.con_ptr);
 		}

@@ -6,7 +6,7 @@
 /*   By: elfetoua <elfetoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/23 02:01:05 by elfetoua          #+#    #+#             */
-/*   Updated: 2020/02/23 21:20:08 by elfetoua         ###   ########.fr       */
+/*   Updated: 2020/02/24 20:09:54 by elfetoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	drawline(t_env *env, t_point p1, t_point p2)
 	t_fvec2	delta;
 	t_fvec2	step;
 	double	max;
-	register int		i;
+	int		i;
 	t_win	*win;
 
 	delta.x = p2.x - p1.x;
@@ -32,7 +32,7 @@ void	drawline(t_env *env, t_point p1, t_point p2)
 		if (p1.color == WHITE && p1.z != 0)
 			p1.color = ORANGE;
 		mlx_pixel_put(win->con_ptr, win->win_ptr,
-		round(p1.x), round(p1.y), p1.color);
+		round(p1.x), round(p1.y), p2.color);
 		p1.x += step.x;
 		p1.y += step.y;
 	}
