@@ -6,7 +6,7 @@
 /*   By: elfetoua <elfetoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/22 16:51:43 by elfetoua          #+#    #+#             */
-/*   Updated: 2020/02/24 20:10:20 by elfetoua         ###   ########.fr       */
+/*   Updated: 2020/02/27 23:23:52 by elfetoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,12 +93,14 @@ void	extract_data(t_map *map, char *filename, int fd, int index)
 	t_ivec2 coords;
 	char	*color;
 
-	map->content = (t_point*)ft_memalloc(sizeof(t_point) * map->size);
+	map->content = (t_point*)malloc(sizeof(t_point) * map->size);
 	fd = open(filename, O_RDONLY);
 	coords.y = 0;
 	while (get_next_line(fd, &line) > 0)
 	{
 		split = ft_strsplit(line, ' ');
+		if(split == NULL)
+			ft_putendl("malloc error");
 		coords.x = 0;
 		while (split[coords.x] != NULL)
 		{
@@ -120,16 +122,22 @@ void	env_map(t_map *map, t_env *env)
 {
 	register int		i;
 
+	env->map = (t_map*)malloc(sizeof(t_map));
+	if (!env->map)
+		exit(1);
+	env->map->content = (t_point*)malloc(sizeof(t_point) * map->size);
+	if (!env->map->content)
+	{
+		ft_putendl("null pointer");
+		exit(1);
+	}
+	env->map->cols = map->cols;
+	env->map->rows = map->rows;
+	env->map->size = map->size;
 	i = 0;
-	env->map = (t_map*)ft_memalloc(sizeof(map));
-	env->map->content = (t_point*)ft_memalloc(sizeof(t_point) * map->size);
 	while (i < map->size)
 	{
-		env->map->cols = map->cols;
-		env->map->rows = map->rows;
-		env->map->size = map->size;
 		env->map->content[i] = map->content[i];
-		//printf("%f %f %d", env->map->content[i].x, env->map->content[i].y, env->map->size);
 		i++;
 	}
 }
@@ -141,14 +149,17 @@ int		main(int ac, char **av)
 
 	if (ac == 2)
 	{
-		ft_bzero(&map, sizeof(t_map));
+		ft_bzero((void*)&map, sizeof(t_map));
 		if (get_map_info(&map, av[1]) > 0)
 		{
 			extract_data(&map, av[1], 0, 0);
-			ft_setup(&env);
+			
+			ft_setup(&env, map.size);
+		
 			env_map(&map, &env);
+		//free map
 			mlx_key_hook(env.win->win_ptr, deal_key, (void*)&env);
-		// ft_draw_map(&map, &env);
+		//free env->map
 			mlx_loop(env.con_ptr);
 		}
 	}

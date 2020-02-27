@@ -6,7 +6,7 @@
 /*   By: elfetoua <elfetoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/22 16:52:13 by elfetoua          #+#    #+#             */
-/*   Updated: 2020/02/23 21:19:50 by elfetoua         ###   ########.fr       */
+/*   Updated: 2020/02/27 22:17:38 by elfetoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,12 @@
 # include <mlx.h>
 # include <math.h>
 # define WHITE 0X00FFFFFF
-#define ORANGE 0X00FFA500
+# define ORANGE 0X00FFA500
+# define PINK 0X00FF00FF
+# define SIZE1 1000
+# define SIZE2 1600
 
+#include <assert.h>
 typedef struct	s_map	t_map;
 typedef struct	s_point	t_point;
 typedef struct	s_img	t_img;
@@ -72,9 +76,9 @@ struct	s_env
 	int		transf;
 };
 
-void	ft_setup(t_env *env);
+void	ft_setup(t_env *env, int i);
 void	drawline(t_env *env, t_point p1, t_point p2);
-void	ft_draw_map(t_map *map, t_env *env);
+void	ft_draw_map(t_env *env);
 void    ft_transform(t_point *p, t_env *env);
 int		deal_key(int key, void *env);
 #endif

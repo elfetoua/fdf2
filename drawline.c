@@ -6,7 +6,7 @@
 /*   By: elfetoua <elfetoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/23 02:01:05 by elfetoua          #+#    #+#             */
-/*   Updated: 2020/02/24 20:09:54 by elfetoua         ###   ########.fr       */
+/*   Updated: 2020/02/27 22:20:13 by elfetoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ void	drawline(t_env *env, t_point p1, t_point p2)
 	i = -1;
 	while (++i <= max)
 	{
-		if (p1.color == WHITE && p1.z != 0)
-			p1.color = ORANGE;
+		if (p1.color == WHITE && (p1.z != 0 && p2.z))
+			p1.color = PINK;
 		mlx_pixel_put(win->con_ptr, win->win_ptr,
-		round(p1.x), round(p1.y), p2.color);
+		round(p1.x), round(p1.y), p1.color);
 		p1.x += step.x;
 		p1.y += step.y;
 	}

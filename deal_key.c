@@ -6,56 +6,38 @@
 /*   By: elfetoua <elfetoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/23 17:55:19 by elfetoua          #+#    #+#             */
-/*   Updated: 2020/02/24 20:08:47 by elfetoua         ###   ########.fr       */
+/*   Updated: 2020/02/27 23:23:41 by elfetoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int		deal_key(int key, void *env1)
+int		deal_key(int key, void *env)
 {
-	t_env	*env;
+	static	t_ivec2 offset;
 
-    env = (t_env*)env1;
-    static t_ivec2 offset;
-    if (key == 53)
+	if (key == 53)
 		exit(0);
 	if (key == 84)
-		env->transf = 2;
-	if (key == 69)
-			env->zoom *= 2;
-	if (key == 78)
-		env->zoom /= 2;
-	if (key == 123)
-		{
-			offset.x -= 10;
-			env->offset.x = offset.x;
-		}
-			
-	if (key == 124)
-		{
-			offset.x += 10;
-			env->offset.x = offset.x;
-		}
-	if (key == 126)
-		{
-			offset.y -= 10;
-			env->offset.y = offset.y;
-		}
-			
-	if (key == 125)
-		{
-			offset.y += 10;
-			env->offset.y = offset.y;
-		}
+		((t_env*)env)->transf = 2;
 	if (key == 83)
-		env->transf = 1;
+		((t_env*)env)->transf = 1;
 	if (key == 69)
-			env->zoom *= 2;
+		((t_env*)env)->zoom *= 2;
 	if (key == 78)
-		env->zoom /= 2;
-	mlx_clear_window(env->con_ptr, env->win->win_ptr);
-	ft_draw_map(env->map, env);
-
-	return (key);
-}   
+		((t_env*)env)->zoom /= 2;
+	if (key == 123 || key == 124)
+	{
+		offset.x += (key == 123) ? -10 : 10;
+		((t_env*)env)->offset.x = offset.x;
+	}
+	if (key == 126 || key == 125)
+	{
+		offset.y += (key == 126) ? -10 : 10;
+		((t_env*)env)->offset.y = offset.y;
+	}
+	//(key == 8)
+	mlx_clear_window(((t_env*)env)->con_ptr, ((t_env*)env)->win->win_ptr);
+	ft_draw_map((t_env*)env);
+	return (0);
+}
