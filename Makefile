@@ -6,12 +6,12 @@
 #    By: elfetoua <elfetoua@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/22 16:54:01 by elfetoua          #+#    #+#              #
-#    Updated: 2020/02/25 12:42:05 by elfetoua         ###   ########.fr        #
+#    Updated: 2020/02/28 20:22:19 by elfetoua         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fdf
-SRC = main.c ft_setup.c drawline.c draw_map.c transform.c deal_key.c
+SRC = main.c ft_setup.c drawline.c draw_map.c transform.c deal_key.c norm.c
 OBJ = $(SRC:.c=.o)
 INCLUDE = fdf.h
 LIBFT = ./libft/libft.a

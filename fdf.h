@@ -6,7 +6,7 @@
 /*   By: elfetoua <elfetoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/22 16:52:13 by elfetoua          #+#    #+#             */
-/*   Updated: 2020/02/27 22:17:38 by elfetoua         ###   ########.fr       */
+/*   Updated: 2020/02/29 00:18:39 by elfetoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,7 @@ void	drawline(t_env *env, t_point p1, t_point p2);
 void	ft_draw_map(t_env *env);
 void    ft_transform(t_point *p, t_env *env);
 int		deal_key(int key, void *env);
+void	exit_env(t_env *env);
+void	clear_and_draw(t_env *env);
+int		center(t_env *env, t_ivec2 *offset);
 #endif

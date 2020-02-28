@@ -6,7 +6,7 @@
 /*   By: elfetoua <elfetoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/22 16:51:43 by elfetoua          #+#    #+#             */
-/*   Updated: 2020/02/27 23:23:52 by elfetoua         ###   ########.fr       */
+/*   Updated: 2020/02/28 23:34:44 by elfetoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,33 @@
 int		hex_dec(char *hex_val)
 {
 	int len;
-    int base; 
-    int dec_val;
+	int base;
+	int dec_val;
 	int	i;
-	
+
 	len = ft_strlen(hex_val);
 	base = 1;
 	dec_val = 0;
 	i = len - 1;
-    while (i >= 0)
-    {
-        if (hex_val[i] >= '0' && hex_val[i] <= '9')
-        {
-            dec_val += (hex_val[i] - 48) * base;
-            base = base * 16;
-        }
-        else if (hex_val[i] >= 'A' && hex_val[i] <='F')
-        {
-            dec_val += (hex_val[i] - 55) * base; 
-            base = base * 16;
-        }
+	while (i >= 0)
+	{
+		if (hex_val[i] >= '0' && hex_val[i] <= '9')
+		{
+			dec_val += (hex_val[i] - 48) * base;
+			base = base * 16;
+		}
+		else if (hex_val[i] >= 'A' && hex_val[i] <= 'F')
+		{
+			dec_val += (hex_val[i] - 55) * base;
+			base = base * 16;
+		}
+		else if (hex_val[i] >= 'a' && hex_val[i] <= 'f')
+		{
+			dec_val += (hex_val[i] - 55 - 32) * base;
+			base = base * 16;
+		}
 		i--;
-    }
+	}
 	return (dec_val);
 }
 
@@ -63,7 +68,8 @@ int		get_map_info(t_map *map, char *filename)
 	split = NULL;
 	while ((ret = get_next_line(fd, &line)) > 0)
 	{
-		split = ft_strsplit(line, ' ');
+		if (!(split = ft_strsplit(line, ' ')))
+			exit(0);
 		i = -1;
 		while (split[++i] != NULL)
 			map->size++;
@@ -98,9 +104,8 @@ void	extract_data(t_map *map, char *filename, int fd, int index)
 	coords.y = 0;
 	while (get_next_line(fd, &line) > 0)
 	{
-		split = ft_strsplit(line, ' ');
-		if(split == NULL)
-			ft_putendl("malloc error");
+		if (!(split = ft_strsplit(line, ' ')))
+			exit(0);
 		coords.x = 0;
 		while (split[coords.x] != NULL)
 		{
@@ -109,7 +114,7 @@ void	extract_data(t_map *map, char *filename, int fd, int index)
 			map->content[index].z = ft_atoi(split[coords.x]);
 			if ((color = ft_strchr(split[coords.x], ',')))
 				map->content[index].color = hex_dec(color + 2);
-				coords.x++;
+			coords.x++;
 		}
 		free(line);
 		ft_bonus_freedoubledem(split);
@@ -120,7 +125,7 @@ void	extract_data(t_map *map, char *filename, int fd, int index)
 
 void	env_map(t_map *map, t_env *env)
 {
-	register int		i;
+	int		i;
 
 	env->map = (t_map*)malloc(sizeof(t_map));
 	if (!env->map)
@@ -140,6 +145,7 @@ void	env_map(t_map *map, t_env *env)
 		env->map->content[i] = map->content[i];
 		i++;
 	}
+	free(map->content);
 }
 
 int		main(int ac, char **av)
@@ -153,13 +159,9 @@ int		main(int ac, char **av)
 		if (get_map_info(&map, av[1]) > 0)
 		{
 			extract_data(&map, av[1], 0, 0);
-			
 			ft_setup(&env, map.size);
-		
 			env_map(&map, &env);
-		//free map
 			mlx_key_hook(env.win->win_ptr, deal_key, (void*)&env);
-		//free env->map
 			mlx_loop(env.con_ptr);
 		}
 	}
